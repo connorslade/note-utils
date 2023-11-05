@@ -3,8 +3,12 @@
   "displayName": "note-utils",
   "description": "",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Basicprogrammer10/note-utils"
+  },
   "engines": {
-    "vscode": "^1.29.0"
+    "vscode": "^1.79.0"
   },
   "categories": [
     "Other"
@@ -16,6 +20,10 @@
       {
         "command": "note-utils.dailyNote",
         "title": "Open Daily Note"
+      },
+      {
+        "command": "note-utils.about",
+        "title": "About Note Utils"
       }
     ]
   },
@@ -27,7 +35,7 @@
     "lint": "eslint src --ext ts"
   },
   "devDependencies": {
-    "@types/vscode": "^1.84.0",
+    "@types/vscode": "^1.79.0",
     "@types/mocha": "^10.0.3",
     "@types/node": "18.x",
     "@typescript-eslint/eslint-plugin": "^6.9.0",

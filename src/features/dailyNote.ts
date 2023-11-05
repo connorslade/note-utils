@@ -5,14 +5,17 @@ import * as vscode from "vscode";
 export function register(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand("note-utils.dailyNote", async () => {
-      console.log(vscode.workspace.workspaceFolders);
-      if (vscode.workspace.workspaceFolders?.length == 0) {
+      let workspaceFolders = vscode.workspace.workspaceFolders;
+      if (workspaceFolders == undefined || workspaceFolders.length == 0) {
         vscode.window.showErrorMessage("No workspace is open.");
         return;
       }
 
       let name = notePath();
-      let path = vscode.workspace.asRelativePath(`Daily/${name}.md`);
+      let workspacePath = workspaceFolders[0].uri.fsPath;
+      let path = workspacePath.endsWith("/")
+        ? `${workspacePath}${name}.md`
+        : `${workspacePath}/${name}.md`;
 
       let uri = vscode.Uri.file(path);
       if (!fs.existsSync(path))
