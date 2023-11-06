@@ -20,15 +20,36 @@
     "commands": [
       {
         "command": "note-utils.dailyNote",
-        "title": "Open Daily Note"
+        "title": "Open Daily Note",
+        "category": "Note Utils"
       },
       {
         "command": "note-utils.about",
-        "title": "About Note Utils"
+        "title": "About Note Utils",
+        "category": "Note Utils"
       },
       {
         "command": "note-utils.citationGenerator",
-        "title": "Citation Generator"
+        "title": "Citation Generator",
+        "category": "Note Utils"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "Note Utils",
+        "id": "note-utils",
+        "properties": {
+          "note-utils.citationGenerator.citationStyle": {
+            "description": "The citation style to use.",
+            "type": "string",
+            "enum": [
+              "modern-language-association-8th-edition",
+              "modern-language-association-9th-edition"
+            ],
+            "default": "modern-language-association-8th-edition",
+            "uniqueItems": true
+          }
+        }
       }
     ]
   },

@@ -65,7 +65,7 @@ class CitationJob {
       .post("https://www.mybib.com/api/autocite/reference", {
         metadata: siteInfo,
         sourceId: "webpage",
-        styleId: "modern-language-association-8th-edition",
+        styleId: getFormat(),
       })
       .catch((error) => err(`Failed to generate citation: ${error}`));
     if (!citation) return this;
@@ -81,4 +81,10 @@ class CitationJob {
 
 function err(msg: string) {
   vscode.window.showErrorMessage(msg);
+}
+
+function getFormat(): string {
+  return vscode.workspace
+    .getConfiguration()
+    .get("note-utils.citationGenerator.citationStyle") as string;
 }
