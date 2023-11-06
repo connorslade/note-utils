@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-import { register } from "./features/mod";
+import { register } from "./features";
 
 export const VERSION = "0.0.1";
 
