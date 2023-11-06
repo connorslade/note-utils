@@ -12,25 +12,30 @@ export function register(context: vscode.ExtensionContext) {
       }
 
       let name = notePath();
-      let workspacePath = workspaceFolders[0].uri.fsPath;
-      let path = workspacePath.endsWith("/")
-        ? `${workspacePath}${name}.md`
-        : `${workspacePath}/${name}.md`;
+      let workspacePath = workspaceFolders[0].uri;
+      let path = vscode.Uri.joinPath(workspacePath, "Daily", `${name}.md`);
 
-      let uri = vscode.Uri.file(path);
-      if (!fs.existsSync(path))
-        await vscode.workspace.fs.writeFile(uri, new Uint8Array());
+      let isNew = !fs.existsSync(path.fsPath);
+      if (isNew) {
+        let contents = new TextEncoder().encode(`# ${name}\n\n`);
+        await vscode.workspace.fs.writeFile(path, contents);
+      }
 
       let document = await vscode.workspace.openTextDocument(path);
       let editor = await vscode.window.showTextDocument(document);
-      editor.edit((edit) => {
-        edit.insert(new vscode.Position(0, 0), `# ${name}\n\n`);
-      });
+
+      editor.document.offsetAt(
+        new vscode.Position(editor.document.lineCount - 1, 0)
+      );
     })
   );
 }
 
 function notePath(): string {
   let date = new Date();
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+  let year = date.getFullYear();
+  let month = (date.getMonth() + 1).toString().padStart(2, "0");
+  let day = date.getDate().toString().padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
