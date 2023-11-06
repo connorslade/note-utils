@@ -3,6 +3,7 @@
   "displayName": "note-utils",
   "description": "",
   "version": "0.0.1",
+  "type": "commonjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/Basicprogrammer10/note-utils"
@@ -24,6 +25,10 @@
       {
         "command": "note-utils.about",
         "title": "About Note Utils"
+      },
+      {
+        "command": "note-utils.citationGenerator",
+        "title": "Citation Generator"
       }
     ]
   },
@@ -36,15 +41,18 @@
     "release": "vsce package"
   },
   "devDependencies": {
-    "@types/vscode": "^1.79.0",
     "@types/mocha": "^10.0.3",
     "@types/node": "18.x",
+    "@types/vscode": "^1.79.0",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
+    "@vscode/test-electron": "^2.3.6",
     "eslint": "^8.52.0",
     "glob": "^10.3.10",
     "mocha": "^10.2.0",
-    "typescript": "^5.2.2",
-    "@vscode/test-electron": "^2.3.6"
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "got": "^13.0.0"
   }
 }
