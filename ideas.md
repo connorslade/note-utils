@@ -1,4 +1,4 @@
-- [ ] Auto citation generator
+- [x] Auto citation generator
   - You select the link in your document and it automatically converts it into a mla citation with some web api.
   - If you aren't selecting anything, it will just ask for a link.
 - [ ] Allow adding homework or events to todo list
