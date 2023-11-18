@@ -78,10 +78,6 @@ class List {
     return [completed, completed + notCompleted];
   }
 
-  count(): number {
-    return this.items.length;
-  }
-
   percent(): number {
     const [completed, total] = this.completed();
     return completed / total;
@@ -105,25 +101,29 @@ function findChecklists(document: vscode.TextDocument): List[] {
     const startPos = new vscode.Position(line, 0);
     const endPos = new vscode.Position(line, currentLine.length);
 
-    const matches = currentLine.match(LIST_REGEX);
-    if (matches && matches[1] === undefined) {
-      working.push(new ListItem(startPos, endPos, State.None));
-    } else if (matches) {
-      working.push(
-        new ListItem(
-          startPos,
-          endPos,
-          matches[2] === "x" ? State.Checked : State.Unchecked
-        )
-      );
-    } else if (working.length > 0) {
+    if (currentLine.trim() === "") {
       lists.push(new List(working));
       working = [];
     }
+
+    const matches = currentLine.match(LIST_REGEX);
+    if (matches) {
+      if (matches[1] === undefined)
+        working.push(new ListItem(startPos, endPos, State.None));
+      else
+        working.push(
+          new ListItem(
+            startPos,
+            endPos,
+            matches[2] === "x" ? State.Checked : State.Unchecked
+          )
+        );
+    } else if (working.length > 0)
+      working.push(new ListItem(startPos, endPos, State.None));
   }
 
   if (working.length > 0) lists.push(new List(working));
-  return lists;
+  return lists.filter((list) => list.completed()[1] > 0);
 }
 
 function isEnabled(): boolean {

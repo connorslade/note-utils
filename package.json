@@ -5,6 +5,7 @@
   "publisher": "Connor Slade",
   "version": "0.0.1",
   "type": "commonjs",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Basicprogrammer10/note-utils"
