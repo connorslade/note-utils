@@ -1,7 +1,8 @@
 {
   "name": "note-utils",
   "displayName": "note-utils",
-  "description": "",
+  "description": "A VSCode extension for note taking.",
+  "publisher": "Connor Slade",
   "version": "0.0.1",
   "type": "commonjs",
   "repository": {
@@ -50,6 +51,11 @@
             ],
             "default": "modern-language-association-8th-edition",
             "uniqueItems": true
+          },
+          "note-utils.checklistProgress.enable": {
+            "description": "Whether to enable the checklist progress code lense.",
+            "type": "boolean",
+            "default": true
           }
         }
       }

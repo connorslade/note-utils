@@ -78,7 +78,11 @@ class List {
   }
 }
 
+const LIST_REGEX: RegExp = /[ \t]*- \[ *(.)\ *]/;
+
 function findChecklists(document: vscode.TextDocument): List[] {
+  if (!isEnabled()) return [];
+
   let lists: List[] = [];
   let working: ListItem[] = [];
 
@@ -89,23 +93,25 @@ function findChecklists(document: vscode.TextDocument): List[] {
   while (line < lines.length) {
     const currentLine = lines[line];
 
-    if (currentLine.startsWith("- [ ]")) {
+    const matches = currentLine.match(LIST_REGEX);
+    if (matches) {
       const startPos = new vscode.Position(line, 0);
       const endPos = new vscode.Position(line, currentLine.length);
-      working.push(new ListItem(startPos, endPos, false));
-    } else if (currentLine.startsWith("- [x]")) {
-      const startPos = new vscode.Position(line, 0);
-      const endPos = new vscode.Position(line, currentLine.length);
-      working.push(new ListItem(startPos, endPos, true));
-    } else {
-      if (working.length > 0) {
-        lists.push(new List(working));
-        working = [];
-      }
+      working.push(new ListItem(startPos, endPos, matches[1] === "x"));
+    } else if (working.length > 0) {
+      lists.push(new List(working));
+      working = [];
     }
 
     line++;
   }
 
+  if (working.length > 0) lists.push(new List(working));
   return lists;
+}
+
+function isEnabled(): boolean {
+  return vscode.workspace
+    .getConfiguration()
+    .get("note-utils.checklistProgress.enable") as boolean;
 }
