@@ -19,7 +19,8 @@ class ChecklistLenseProvider implements vscode.CodeLensProvider {
     let codeLenses: vscode.CodeLens[] = [];
 
     for (let list of lists) {
-      let message = `${list.completed()}/${list.count()} (${Math.round(
+      let [completed, total] = list.completed();
+      let message = `${completed}/${total} (${Math.round(
         list.percent() * 100
       )}%)`;
 
@@ -36,19 +37,25 @@ class ChecklistLenseProvider implements vscode.CodeLensProvider {
   }
 }
 
+enum State {
+  Checked,
+  Unchecked,
+  None,
+}
+
 class ListItem {
   startPos: vscode.Position;
   endPos: vscode.Position;
-  completed: boolean;
+  state: State;
 
   constructor(
     startPos: vscode.Position,
     endPos: vscode.Position,
-    completed: boolean
+    state: State
   ) {
     this.startPos = startPos;
     this.endPos = endPos;
-    this.completed = completed;
+    this.state = state;
   }
 }
 
@@ -59,14 +66,16 @@ class List {
     this.items = items;
   }
 
-  completed(): number {
+  completed(): number[] {
     let completed = 0;
+    let notCompleted = 0;
 
     for (let item of this.items) {
-      if (item.completed) completed++;
+      if (item.state == State.Checked) completed++;
+      else if (item.state == State.Unchecked) notCompleted++;
     }
 
-    return completed;
+    return [completed, completed + notCompleted];
   }
 
   count(): number {
@@ -74,11 +83,12 @@ class List {
   }
 
   percent(): number {
-    return this.completed() / this.count();
+    const [completed, total] = this.completed();
+    return completed / total;
   }
 }
 
-const LIST_REGEX: RegExp = /[ \t]*- \[ *(.)\ *]/;
+const LIST_REGEX: RegExp = /[ \t]*- (\[ *(.)\ *])?/;
 
 function findChecklists(document: vscode.TextDocument): List[] {
   if (!isEnabled()) return [];
@@ -88,22 +98,28 @@ function findChecklists(document: vscode.TextDocument): List[] {
 
   const text = document.getText();
   const lines = text.split("\n");
-  let line = 0;
+  let line = -1;
 
-  while (line < lines.length) {
+  while (++line < lines.length) {
     const currentLine = lines[line];
+    const startPos = new vscode.Position(line, 0);
+    const endPos = new vscode.Position(line, currentLine.length);
 
     const matches = currentLine.match(LIST_REGEX);
-    if (matches) {
-      const startPos = new vscode.Position(line, 0);
-      const endPos = new vscode.Position(line, currentLine.length);
-      working.push(new ListItem(startPos, endPos, matches[1] === "x"));
+    if (matches && matches[1] === undefined) {
+      working.push(new ListItem(startPos, endPos, State.None));
+    } else if (matches) {
+      working.push(
+        new ListItem(
+          startPos,
+          endPos,
+          matches[2] === "x" ? State.Checked : State.Unchecked
+        )
+      );
     } else if (working.length > 0) {
       lists.push(new List(working));
       working = [];
     }
-
-    line++;
   }
 
   if (working.length > 0) lists.push(new List(working));
