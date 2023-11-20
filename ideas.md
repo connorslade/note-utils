@@ -6,3 +6,4 @@
 - [x] Word counts
 - [ ] Auto create gist
 - [ ] Alphabetical line sort
+- [ ] Use a bundler

@@ -2,6 +2,7 @@
 
 ## 0.0.2 &mdash; November 20, 2023
 
+- Add extension icon
 - Word count command
 - Don't open output log on startup
 - Allow generating citations without opening a document

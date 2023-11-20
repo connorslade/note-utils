@@ -65,8 +65,6 @@ class CitationJob {
       this.address
     )}&sourceId=webpage`;
 
-    vscode.window.showInformationMessage("Fetching citation...");
-
     let siteLookup = await axios
       .get(url)
       .catch((error) =>
