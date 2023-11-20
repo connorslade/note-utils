@@ -1,7 +1,7 @@
 # note-utils
 
 A VSCode extension for note taking.
-Check it out on the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=connorslade.note-utils).
+Check it out on the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=connorslade.note-utils) or [Open VSX](https://open-vsx.org/extension/connorslade/note-utils).
 
 ## Features
 

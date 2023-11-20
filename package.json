@@ -3,7 +3,7 @@
   "displayName": "note-utils",
   "description": "A VSCode extension for note taking.",
   "publisher": "connorslade",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "commonjs",
   "license": "MIT",
   "repository": {

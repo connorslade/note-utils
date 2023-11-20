@@ -7,7 +7,6 @@ export class Logger {
   public static register(context: vscode.ExtensionContext) {
     if (Logger.handle) return;
     Logger.handle = vscode.window.createOutputChannel(NAME, ID);
-    Logger.handle.show();
   }
 
   static log(message: any) {
