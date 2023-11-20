@@ -3,3 +3,4 @@
   - If you aren't selecting anything, it will just ask for a link.
 - [ ] Allow adding homework or events to todo list
 - [x] Checklist percent, like rust-analyzer's inlays on tests, but like `10/14 (71%)`
+- [x] Word counts

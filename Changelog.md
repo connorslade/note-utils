@@ -3,6 +3,7 @@
 ## 0.0.2 &mdash; November 20, 2023
 
 - Word count command
+- Don't open output log on startup
 
 ## 0.0.1 &mdash; November 19, 2023
 

@@ -3,7 +3,7 @@ import { Logger } from "../logging";
 
 export function register(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand("note-utils.wordCount", () => {
+    vscode.commands.registerCommand("note-utils.wordCount", async () => {
       const editor = vscode.window.activeTextEditor;
       if (!editor) return vscode.window.showErrorMessage("No active editor");
       Logger.info(`Document has ${editor.selections.length} selections`);
@@ -18,7 +18,9 @@ export function register(context: vscode.ExtensionContext) {
 
       vscode.window.showQuickPick([
         `Words: ${counter.words}`,
+        `Paragraphs: ${counter.paragraphs}`,
         `Characters: ${counter.chars}`,
+        `Characters (with whitespace): ${counter.chars_space}`,
       ]);
     })
   );
@@ -27,12 +29,28 @@ export function register(context: vscode.ExtensionContext) {
 class Counter {
   words: number = 0;
   chars: number = 0;
+  chars_space: number = 0;
+  paragraphs: number = 0;
 
   process(text: string) {
-    // TODO: do a better job
     this.words += text.split(" ").filter((x) => x.length != 0).length;
-    this.chars += text.length;
+    this.chars_space += text.length;
+    this.chars += text.split("").filter((x) => x.trim() != "").length;
+    this.paragraphs += paragraphs(text);
   }
+}
+
+function paragraphs(text: string): number {
+  const lines = text.split("\n");
+  let blocks = 1;
+  let idx = 0;
+
+  while (idx < lines.length) {
+    if (lines[idx].trim() == "") blocks++;
+    idx++;
+  }
+
+  return blocks;
 }
 
 function nothingSelected(editor: vscode.TextEditor): boolean {
