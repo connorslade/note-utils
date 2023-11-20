@@ -2,7 +2,7 @@
   "name": "note-utils",
   "displayName": "note-utils",
   "description": "A VSCode extension for note taking.",
-  "publisher": "Connor Slade",
+  "publisher": "connorslade",
   "version": "0.0.1",
   "type": "commonjs",
   "license": "MIT",
@@ -10,6 +10,7 @@
     "type": "git",
     "url": "https://github.com/Basicprogrammer10/note-utils"
   },
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.79.0"
   },
