@@ -1,6 +1,7 @@
 import * as fs from "fs";
 
 import * as vscode from "vscode";
+import { Logger } from "../logging";
 
 export function register(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -14,6 +15,7 @@ export function register(context: vscode.ExtensionContext) {
       let name = notePath();
       let workspacePath = workspaceFolders[0].uri;
       let path = vscode.Uri.joinPath(workspacePath, "Daily", `${name}.md`);
+      Logger.info(`Opening \`${path}\``);
 
       let isNew = !fs.existsSync(path.fsPath);
       if (isNew) {

@@ -37,6 +37,11 @@
         "command": "note-utils.citationGenerator",
         "title": "Citation Generator",
         "category": "Note Utils"
+      },
+      {
+        "command": "note-utils.wordCount",
+        "title": "Word Count",
+        "category": "Note Utils"
       }
     ],
     "configuration": [
