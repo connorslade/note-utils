@@ -9,38 +9,58 @@ export function register(context: vscode.ExtensionContext) {
       "note-utils.citationGenerator",
       async () => {
         const editor = vscode.window.activeTextEditor;
-        if (!editor) return err("No active editor");
-        if (editor.selections.length == 0) return err("No text selected");
+        if (
+          !editor ||
+          editor.selections.length == 0 ||
+          (editor.selections.length == 1 && editor.selections[0].isEmpty)
+        ) {
+          let options = { title: "Web Address" };
+          let address = await vscode.window.showInputBox(options);
+          if (!address) return;
 
-        for (let selection of editor.selections)
-          new CitationJob(editor, selection)
+          let citation = await new CitationJob(address)
             .cite()
-            .then((job) => {
-              if (job.citation === null) return;
-              editor.edit((editBuilder) => {
-                editBuilder.replace(job.selection, job.citation!);
-              });
-            })
             .catch((error) => err(`Failed to generate citation: ${error}`));
+          if (!citation) return;
+
+          if (editor) {
+            await editor.edit((editBuilder) =>
+              editBuilder.insert(editor.selections[0].end, citation!.citation!)
+            );
+          } else {
+            let doc = await vscode.workspace.openTextDocument({
+              language: "plaintext",
+              content: citation.citation!,
+            });
+            await vscode.window.showTextDocument(doc, { preview: false });
+          }
+        } else {
+          for (let selection of editor.selections)
+            new SelectionCitationJob(editor, selection)
+              .cite()
+              .then((job) => {
+                if (job.citation === null) return;
+                editor.edit((editBuilder) => {
+                  editBuilder.replace(job.selection, job.citation!);
+                });
+              })
+              .catch((error) => err(`Failed to generate citation: ${error}`));
+        }
       }
     )
   );
 }
 
 class CitationJob {
-  editor: TextEditor;
-  selection: Selection;
   address: string;
   citation: string | null;
 
-  constructor(editor: TextEditor, selection: Selection) {
-    this.editor = editor;
-    this.selection = selection;
-    this.address = editor.document.getText(selection);
+  constructor(address: string) {
+    this.address = address;
     this.citation = null;
   }
 
-  async cite(): Promise<CitationJob> {
+  async cite(): Promise<this> {
     let url = `https://www.mybib.com/api/autocite/search?q=${encodeURIComponent(
       this.address
     )}&sourceId=webpage`;
@@ -76,6 +96,17 @@ class CitationJob {
       .replace(/[“”]/gm, '"');
 
     return this;
+  }
+}
+
+class SelectionCitationJob extends CitationJob {
+  editor: TextEditor;
+  selection: Selection;
+
+  constructor(editor: TextEditor, selection: Selection) {
+    super(editor.document.getText(selection));
+    this.editor = editor;
+    this.selection = selection;
   }
 }
 

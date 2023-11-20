@@ -4,6 +4,7 @@
 
 - Word count command
 - Don't open output log on startup
+- Allow generating citations without opening a document
 
 ## 0.0.1 &mdash; November 19, 2023
 
