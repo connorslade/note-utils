@@ -1,3 +1,5 @@
+# Ideas
+
 - [x] Auto citation generator
   - You select the link in your document and it automatically converts it into a mla citation with some web api.
   - If you aren't selecting anything, it will just ask for a link.
@@ -6,4 +8,5 @@
 - [x] Word counts
 - [ ] Auto create gist
 - [ ] Alphabetical line sort
-- [ ] Use a bundler
+- [ ] Use a bundler (please)
+- [ ] Next citation shortcut
