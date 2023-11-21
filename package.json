@@ -63,6 +63,16 @@
             "description": "Whether to enable the checklist progress code lense.",
             "type": "boolean",
             "default": true
+          },
+          "note-utils.checklistProgress.completionMessage": {
+            "description": "Whether to display a message when all checklist items are checked.",
+            "type": "boolean",
+            "default": true
+          },
+          "note-utils.checklistProgress.completionMessageText": {
+            "description": "The message to display when all checklist items are checked.",
+            "type": "string",
+            "default": "All done! 🎉"
           }
         }
       }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.3 &mdash;
+
+- Allow showing a nice little message when you complete all the tasks in a list
+
 ## 0.0.2 &mdash; November 20, 2023
 
 - Add extension icon

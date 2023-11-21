@@ -24,6 +24,10 @@ class ChecklistLenseProvider implements vscode.CodeLensProvider {
         list.percent() * 100
       )}%)`;
 
+      let completionMessage = getCompletionMessage();
+      if (completed === total && completionMessage)
+        message += ` ${completionMessage}`;
+
       const pos = list.items[0].startPos;
       const range = new vscode.Range(pos, pos);
       let codeLens = new vscode.CodeLens(range, {
@@ -130,4 +134,15 @@ function isEnabled(): boolean {
   return vscode.workspace
     .getConfiguration()
     .get("note-utils.checklistProgress.enable") as boolean;
+}
+
+function getCompletionMessage(): string | undefined {
+  const config = vscode.workspace.getConfiguration();
+  let enabled = config.get(
+    "note-utils.checklistProgress.completionMessage"
+  ) as boolean;
+  if (!enabled) return undefined;
+  return config.get(
+    "note-utils.checklistProgress.completionMessageText"
+  ) as string;
 }
