@@ -42,6 +42,11 @@
         "command": "note-utils.wordCount",
         "title": "Word Count",
         "category": "Note Utils"
+      },
+      {
+        "command": "note-utils.checklistToggle",
+        "title": "Toggle Checklist Item",
+        "category": "Note Utils"
       }
     ],
     "configuration": [

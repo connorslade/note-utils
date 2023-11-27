@@ -10,3 +10,4 @@
 - [ ] Alphabetical line sort
 - [ ] Use a bundler (please)
 - [ ] Next citation shortcut
+- [ ] Checklist checker command
