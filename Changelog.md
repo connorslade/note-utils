@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.0.3 &mdash;
+## 0.0.3 &mdash; November 26, 2023
 
 - Checklist item toggle command
 - Allow showing a nice little message when you complete all the tasks in a list

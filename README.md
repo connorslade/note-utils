@@ -9,3 +9,4 @@ Check it out on the [VSCode Marketplace](https://marketplace.visualstudio.com/it
 - Citation Generator &mdash; Uses a citation api to automatically convert selected urls into citations
 - Checklist Progress &mdash; Shows a completion code lense above markdown checklists
 - Word Count &mdash; Shows the number of words, characters, and paragraphs
+- Checklist Toggle &mdash; Toggle a markdown checkbox with a command
