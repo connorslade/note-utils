@@ -78,6 +78,11 @@
             "description": "The message to display when all checklist items are checked.",
             "type": "string",
             "default": "All done! 🎉"
+          },
+          "note-utils.checklistProgress.ignoreCrossed": {
+            "description": "Ignore checklist items that are completely sounded in a strikethrough (~~<TASK>~~).",
+            "type": "boolean",
+            "default": true
           }
         }
       }

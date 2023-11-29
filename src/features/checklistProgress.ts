@@ -88,7 +88,7 @@ class List {
   }
 }
 
-const LIST_REGEX: RegExp = /[ \t]*- (\[ *(.)\ *])?/;
+const LIST_REGEX: RegExp = /[ \t]*- (\[ *(.)\ *])? ?(.*)/;
 
 function findChecklists(document: vscode.TextDocument): List[] {
   if (!isEnabled()) return [];
@@ -112,7 +112,12 @@ function findChecklists(document: vscode.TextDocument): List[] {
 
     const matches = currentLine.match(LIST_REGEX);
     if (matches) {
-      if (matches[1] === undefined)
+      if (
+        matches[1] === undefined ||
+        (ignoreCrossed() &&
+          matches[3].startsWith("~~") &&
+          matches[3].endsWith("~~"))
+      )
         working.push(new ListItem(startPos, endPos, State.None));
       else
         working.push(
@@ -134,6 +139,12 @@ function isEnabled(): boolean {
   return vscode.workspace
     .getConfiguration()
     .get("note-utils.checklistProgress.enable") as boolean;
+}
+
+function ignoreCrossed(): boolean {
+  return vscode.workspace
+    .getConfiguration()
+    .get("note-utils.checklistProgress.ignoreCrossed") as boolean;
 }
 
 function getCompletionMessage(): string | undefined {
