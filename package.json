@@ -47,6 +47,11 @@
         "command": "note-utils.checklistToggle",
         "title": "Toggle Checklist Item",
         "category": "Note Utils"
+      },
+      {
+        "command": "note-utils.newReference",
+        "title": "New Reference",
+        "category": "Note Utils"
       }
     ],
     "configuration": [

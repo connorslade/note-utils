@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.4 &mdash; Coming Soon
+
+- Add New Reference command to automatically insert a reference with a givin link at your cursor position
+
 ## 0.0.3 &mdash; November 26, 2023
 
 - Checklist item toggle command
