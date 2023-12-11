@@ -17,6 +17,7 @@ export function register(context: vscode.ExtensionContext) {
       let path = vscode.Uri.joinPath(workspacePath, "Daily", `${name}.md`);
       Logger.info(`Opening \`${path}\``);
 
+      fs.mkdirSync(path.fsPath, { recursive: true });
       let isNew = !fs.existsSync(path.fsPath);
       if (isNew) {
         let contents = new TextEncoder().encode(`# ${name}\n\n`);
