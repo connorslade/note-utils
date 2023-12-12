@@ -8,6 +8,6 @@
 - [ ] Use a bundler (please)
 - [x] Next citation shortcut
 - [x] Checklist checker command
-  - [ ] Support multi-cursor
+  - [x] Support multi-cursor
 - [ ] Clean paste
   - Will automatically fix up quote symbols when pasting

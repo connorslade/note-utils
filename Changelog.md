@@ -6,6 +6,7 @@
 - Updates to daily note command
   - Allow customizing the location of note files using a formatter
   - Allow defining a template file
+- Fix multi cursor support in checklistToggle
 
 ## 0.0.3 &mdash; November 26, 2023
 
