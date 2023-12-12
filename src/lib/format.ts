@@ -80,7 +80,6 @@ function tokenize(input: string): Token[] {
   let i = 0;
   while (i < chars.length) {
     let c = chars[i];
-    console.log(c);
     if (c === "{") {
       let start = i;
       i++;
@@ -90,7 +89,7 @@ function tokenize(input: string): Token[] {
       );
       out.push(new FormatToken(value, processors));
     } else {
-      let start = i++;
+      let start = i;
       while (i++ < chars.length && chars[i] !== "{");
       let value = input.substring(start, i);
       out.push(new LiteralToken(value));
@@ -118,5 +117,3 @@ function parseProcessors(input: string): [string, Processor[]] {
 
   return [value, out];
 }
-
-console.log(new Formatter("Daily/{year}/{month:pad(2)}/{day:pad(2)}"));

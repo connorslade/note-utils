@@ -72,7 +72,7 @@
           "note-utils.dailyNote.location": {
             "description": "Formatter for the path of the days daily note. The available formatters are `year`, `month`, and `day`.",
             "type": "string",
-            "default": "Daily/{year}/{month:pad(2)}/{day:pad(2)}"
+            "default": "Daily/{year}/{month:pad(2)}/{year}-{month:pad(2)}-{day:pad(2)}.md"
           },
           "note-utils.dailyNote.template": {
             "description": "Weather to use a template file or just create a blank file.",
