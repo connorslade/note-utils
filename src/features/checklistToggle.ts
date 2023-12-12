@@ -16,6 +16,7 @@ export function register(context: vscode.ExtensionContext) {
             /- \[([ x])\]/,
             `- [${checked ? " " : "x"}]`
           );
+
           editBuilder.replace(
             new vscode.Range(line, 0, line, text.length),
             newText

@@ -52,6 +52,11 @@
         "command": "note-utils.newReference",
         "title": "New Reference",
         "category": "Note Utils"
+      },
+      {
+        "command": "note-utils.cleanPaste",
+        "title": "Clean Paste",
+        "category": "Note Utils"
       }
     ],
     "configuration": [

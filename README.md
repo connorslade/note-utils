@@ -11,3 +11,4 @@ Check it out on the [VSCode Marketplace](https://marketplace.visualstudio.com/it
 - Word Count &mdash; Shows the number of words, characters, and paragraphs
 - Checklist Toggle &mdash; Toggle a markdown checkbox with a command
 - New Reference &mdash; Insert a new citation at your cursor position, putting a reference at the bottom of your document
+- Clean Paste &mdash; Convert shaped quotes to regular quotes while pasting

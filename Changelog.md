@@ -7,6 +7,7 @@
   - Allow customizing the location of note files using a formatter
   - Allow defining a template file
 - Fix multi cursor support in checklistToggle
+- Add cleanPaste command to paste and convert shaped quotes to regular quotes
 
 ## 0.0.3 &mdash; November 26, 2023
 
