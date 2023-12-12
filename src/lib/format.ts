@@ -6,14 +6,14 @@ export class Formatter {
     this.tokens = tokenize(format);
   }
 
-  format(args: { [key: string]: string }): string {
+  format(args: { [key: string]: string }, noFail = false): string {
     let out = "";
     for (let token of this.tokens) {
       if (token instanceof LiteralToken) {
         out += token.value;
       } else if (token instanceof FormatToken) {
         let value = args[token.value];
-        if (value == undefined)
+        if (value === undefined && !noFail)
           throw new Error(`Undefined value: ${token.value}`);
         out += token.processors.reduce(
           (acc, processor) => processor.process(acc),
@@ -80,17 +80,18 @@ function tokenize(input: string): Token[] {
   let i = 0;
   while (i < chars.length) {
     let c = chars[i];
-    if (c == "{") {
+    console.log(c);
+    if (c === "{") {
       let start = i;
       i++;
-      while (i++ < chars.length && chars[i] != "}");
+      while (i++ < chars.length && chars[i] !== "}");
       let [value, processors] = parseProcessors(
         input.substring(start + 1, i++)
       );
       out.push(new FormatToken(value, processors));
     } else {
       let start = i++;
-      while (i++ < chars.length && chars[i] != "{");
+      while (i++ < chars.length && chars[i] !== "{");
       let value = input.substring(start, i);
       out.push(new LiteralToken(value));
     }
@@ -110,10 +111,12 @@ function parseProcessors(input: string): [string, Processor[]] {
       lowercase: ProcessorType.Lowercase,
       pad: ProcessorType.Pad,
     }[type.toLowerCase()];
-    if (processorType == undefined)
+    if (processorType === undefined)
       throw new Error(`Unknown processor type: ${type}`);
     out.push(new Processor(processorType, args));
   }
 
   return [value, out];
 }
+
+console.log(new Formatter("Daily/{year}/{month:pad(2)}/{day:pad(2)}"));

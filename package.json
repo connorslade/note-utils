@@ -69,6 +69,21 @@
             "default": "modern-language-association-8th-edition",
             "uniqueItems": true
           },
+          "note-utils.dailyNote.location": {
+            "description": "Formatter for the path of the days daily note. The available formatters are `year`, `month`, and `day`.",
+            "type": "string",
+            "default": "Daily/{year}/{month:pad(2)}/{day:pad(2)}"
+          },
+          "note-utils.dailyNote.template": {
+            "description": "Weather to use a template file or just create a blank file.",
+            "type": "boolean",
+            "default": true
+          },
+          "note-utils.dailyNote.templateLocation": {
+            "description": "Path of template file. Inside the file the available formatters are `year`, `month`, and `day`.",
+            "type": "string",
+            "default": "templates/daily.md"
+          },
           "note-utils.checklistProgress.enable": {
             "description": "Whether to enable the checklist progress code lense.",
             "type": "boolean",
