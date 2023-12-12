@@ -3,6 +3,9 @@
 ## 0.0.4 &mdash; Coming Soon
 
 - Add New Reference command to automatically insert a reference with a givin link at your cursor position
+- Updates to daily note command
+  - Allow customizing the location of note files using a formatter
+  - Allow defining a template file
 
 ## 0.0.3 &mdash; November 26, 2023
 
