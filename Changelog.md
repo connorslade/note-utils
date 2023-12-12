@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.0.4 &mdash; Coming Soon
+## 0.0.4 &mdash; December 12, 2023
 
 - Add New Reference command to automatically insert a reference with a givin link at your cursor position
 - Updates to daily note command
