@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 import { register } from "./features";
 import { Logger } from "./logging";
 
-export const VERSION = "0.0.1";
+export const VERSION = "0.0.5";
 export const ID = "note-utils";
 export const NAME = "Note Utils";
 
