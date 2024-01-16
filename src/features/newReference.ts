@@ -20,7 +20,14 @@ export function register(context: vscode.ExtensionContext) {
         for (let selection of editor.selections)
           editBuilder.replace(selection, citation);
 
-        let position = new vscode.Position(editor.document.lineCount, 0);
+        let lastLine = editor.document.lineCount;
+        while (lastLine > 0) {
+          let line = editor.document.lineAt(lastLine - 1);
+          if (line.isEmptyOrWhitespace) lastLine--;
+          else break;
+        }
+
+        let position = new vscode.Position(lastLine, 0);
         editBuilder.insert(position, `\n[^${number}]: ${link}`);
       });
     })

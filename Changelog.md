@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.5 &mdash; Coming Soon
+
+- Ignore trailing whitespace in New Reference command
+
 ## 0.0.4 &mdash; December 12, 2023
 
 - Add New Reference command to automatically insert a reference with a givin link at your cursor position
