@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.0.5 &mdash; Coming Soon
+## 0.0.5 &mdash; January 9, 2025
 
 - Ignore trailing whitespace in New Reference command
 
