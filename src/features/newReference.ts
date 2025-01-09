@@ -13,32 +13,34 @@ export function register(context: vscode.ExtensionContext) {
       });
       if (!link) return;
 
-      let number = nextReferenceNumber(editor.document);
+      let [line, number] = nextReferenceNumber(editor.document);
 
       await editor.edit((editBuilder) => {
         let citation = `[^${number}]`;
         for (let selection of editor.selections)
           editBuilder.replace(selection, citation);
 
-        let lastLine = editor.document.lineCount;
-        while (lastLine > 0) {
-          let line = editor.document.lineAt(lastLine - 1);
-          if (line.isEmptyOrWhitespace) lastLine--;
-          else break;
-        }
-
-        let position = new vscode.Position(lastLine, 0);
-        editBuilder.insert(position, `\n[^${number}]: ${link}`);
+        let position = new vscode.Position(line, 0);
+        editBuilder.insert(position, `[^${number}]: ${link}\n`);
       });
     })
   );
 }
 
-function nextReferenceNumber(document: vscode.TextDocument) {
-  let text = document.getText();
-  let matches = text.matchAll(/\[\^(\d+)\]/g);
-  let numbers = Array.from(matches, (match) => parseInt(match[1]));
-  let max = Math.max(...numbers);
-  if (max === -Infinity) return 1;
-  return max + 1;
+function nextReferenceNumber(document: vscode.TextDocument): [number, number] {
+  let line = 0;
+  let reference_number = 0;
+
+  for (let i = 0; i < document.lineCount; i++) {
+    let match = document.lineAt(i).text.match(/\[\^(\d+)\]:/);
+    if (match === null) continue;
+
+    let number = parseInt(match[1]);
+    if (number > reference_number) {
+      line = i;
+      reference_number = number;
+    }
+  }
+
+  return [line + 1, reference_number + 1];
 }
